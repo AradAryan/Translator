@@ -9,7 +9,7 @@ namespace Translator
     {
         public static Dictionary<string, string> myDictionary = null;
 
-        public static void AddWords()
+        public static void Fill()
         {
             myDictionary = new Dictionary<string, string>();
             myDictionary.Add("my", "من");
@@ -20,6 +20,11 @@ namespace Translator
             myDictionary.Add("a", "یک");
             myDictionary.Add("book", "کتاب");
             myDictionary.Add("and", "و");
+        }
+
+        public static void AddWord(string engWord, string persianWord)
+        {
+            myDictionary.Add(engWord, persianWord);
         }
     }
 }

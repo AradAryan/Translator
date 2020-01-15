@@ -20,17 +20,28 @@ namespace Translator
         [WebMethod]
         public string Translate(string input)
         {
-            DictionaryClass.AddWords();
-
+            DictionaryClass.Fill();
+            DictionaryClass.AddWord("welcome", "خوش آمدید");
+            string output = "";
             var words = input.Split(' ');
-            var transalte = DictionaryClass.myDictionary.Where(a => a.Key == input);
-
-            string c="";
-            foreach (var item in transalte)
+            try
             {
-               c = item.Value.ToString();
+                foreach (var item in words)
+                {
+                    var translate = DictionaryClass.myDictionary.Where(search => search.Key == item);
+                    foreach (var item1 in translate)
+                    {
+                        output += item1.Value.ToString() + " ";
+                    }
+                }
             }
-            return c;
+            catch (Exception)
+            {
+
+                output += " _ ";
+            }
+            
+            return output;
         }
     }
 }
