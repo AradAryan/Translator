@@ -18,13 +18,15 @@ namespace Translator
     {
 
         [WebMethod]
-        public string Translate(string word)
+        public string Translate(string input)
         {
             DictionaryClass.AddWords();
-            var temp = DictionaryClass.myDictionary.Values;
-            var b = DictionaryClass.myDictionary.Where(a => a.Key == word);
+
+            var words = input.Split(' ');
+            var transalte = DictionaryClass.myDictionary.Where(a => a.Key == input);
+
             string c="";
-            foreach (var item in b)
+            foreach (var item in transalte)
             {
                c = item.Value.ToString();
             }
