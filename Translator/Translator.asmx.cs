@@ -20,10 +20,15 @@ namespace Translator
         [WebMethod]
         public string Translate(string word)
         {
+            DictionaryClass.AddWords();
             var temp = DictionaryClass.myDictionary.Values;
             var b = DictionaryClass.myDictionary.Where(a => a.Key == word);
-            
-            return b.ToString(); ;
+            string c="";
+            foreach (var item in b)
+            {
+               c = item.Value.ToString();
+            }
+            return c;
         }
     }
 }
