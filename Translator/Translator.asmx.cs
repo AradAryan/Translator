@@ -12,11 +12,16 @@ namespace Translator
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
-    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line.
     // [System.Web.Script.Services.ScriptService]
     public class Translator : WebService
     {
-
+        #region Translate Function
+        /// <summary>
+        /// Translate Input String
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [WebMethod]
         public string Translate(string input)
         {
@@ -24,24 +29,19 @@ namespace Translator
             DictionaryClass.AddWord("welcome", "خوش آمدید");
             string output = "";
             var words = input.Split(' ');
-            try
+            foreach (var item in words)
             {
-                foreach (var item in words)
-                {
-                    var translate = DictionaryClass.myDictionary.Where(search => search.Key == item);
-                    foreach (var item1 in translate)
-                    {
-                        output += item1.Value.ToString() + " ";
-                    }
-                }
-            }
-            catch (Exception)
-            {
+                var translate =
+                    DictionaryClass.myDictionary.Where(search => string.Compare
+                    (strA: search.Key, ignoreCase: true, strB: item) == 0).FirstOrDefault();
 
-                output += " _ ";
+                if (translate.Value != null)
+                    output += translate.Value + " ";
+                else
+                    output += " _ ";
             }
-            
             return output;
         }
+        #endregion
     }
 }
